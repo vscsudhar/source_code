@@ -1,0 +1,26 @@
+https://stackoverflow.com/questions/4779963/how-can-i-access-my-localhost-from-my-android-device
+
+
+
+
+    You are not able to view your website, mainly because your firewall ( default OS firewall or Antivirus firewall ) is preventing incoming connections.
+
+On Windows Firewall:
+
+To allow incoming connections on specific ports, go to:
+
+    Control Panel > Windows Defender Firewall > Advanced Settings > Right Click Inbound Rules > Add New Rule.
+
+    Then :
+
+        Select "Port" radio button.
+        Enter the specific port / range you on which you want to enable incoming connections ( the port on which your server is running )
+        Select "Allow the connection" radio button.
+        Click Next ( unless you want to change the defaults )
+        Give your rule a name and click Finish.
+
+Note:
+
+If you are using an Antivirus having a firewall, then the above steps will not work since the Antivirus would have disabled Windows firewall and instead runs its own firewall.
+
+In that case, depending on the Antivirus program, go to your Antivirus's Firewall settings and open the port.

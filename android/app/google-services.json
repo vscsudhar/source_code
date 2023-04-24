@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "620463100599",
+    "project_id": "testproject-43",
+    "storage_bucket": "testproject-43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620463100599:android:1e52dbe5dcadaf75253332",
+        "android_client_info": {
+          "package_name": "com.egbs.groceteria"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620463100599-6ugm9kpt4scqtr7hl4j35c0loe3mga6c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egbs.groceteria",
+            "certificate_hash": "845fe92731c90cd00e1d09dc590ba643fe422c6b"
+          }
+        },
+        {
+          "client_id": "620463100599-gdte48ougdiv6qlidkfjkpt9ucph7r8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egbs.groceteria",
+            "certificate_hash": "c1ab5e9f0111658535a469db38958a7a7e6e1cb3"
+          }
+        },
+        {
+          "client_id": "620463100599-k4jlu4f27m4p2o6o4kodghvi2ul0sg2k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egbs.groceteria",
+            "certificate_hash": "802a32ac063c891a6e7f942a07140bd574450f58"
+          }
+        },
+        {
+          "client_id": "620463100599-p2nh1uo3q7smli3lmsn9lcl6kk953dqu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egbs.groceteria",
+            "certificate_hash": "8253b5fcc9a81b69352ef11409ae436ad37e5384"
+          }
+        },
+        {
+          "client_id": "620463100599-pf8jmepvgv3bl8i2do7caqq2gs8i9sa1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egbs.groceteria",
+            "certificate_hash": "dd8e704e6351f14cff34ae3e7c47a60a6994a913"
+          }
+        },
+        {
+          "client_id": "620463100599-ndiqp3rvlvmvlccrkuj5bbi15h8v19p7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfra9clKmJ1pb5CWetGeaQ4rYy_mMPsTM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620463100599-ndiqp3rvlvmvlccrkuj5bbi15h8v19p7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "620463100599-ach14i3qo4h3pbgsh57hj6c0pc0dnjgg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.activeitzone.ecommerceapplesignup"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
