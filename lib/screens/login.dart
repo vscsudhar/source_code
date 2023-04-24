@@ -35,7 +35,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String _login_by = "phone"; //phone or email
+  String _login_by = "phone"; //phone
   String initialCountry = 'IN';
   PhoneNumber phoneCode = PhoneNumber(isoCode: 'IN', dialCode: "+91");
   String _phone = "";
@@ -87,7 +87,7 @@ class _LoginState extends State<Login> {
     }
 
     var loginResponse = await AuthRepository()
-        .getLoginResponse(email , phone, password);
+        .getLoginResponse(email, '${phoneCode.dialCode}$phone', password);
     if (loginResponse.result == false) {
       ToastComponent.showDialog(loginResponse.message,
           gravity: Toast.center, duration: Toast.lengthLong);
