@@ -518,7 +518,7 @@ class _ProfileState extends State<Profile> {
               is_logged_in.$,
               "assets/location.png",
               AppLocalizations.of(context).profile_screen_address,
-              !is_logged_in.$
+              is_logged_in.$
                   ? () {
                       Navigator.push(
                         context,
