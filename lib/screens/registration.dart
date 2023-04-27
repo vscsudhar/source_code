@@ -121,20 +121,21 @@ class _RegistrationState extends State<Registration> {
           duration: Toast.lengthLong);
       return;
     }
-    // else if (_register_by == 'email' && (email == "" || !isEmail(email))) {
-    //   ToastComponent.showDialog(
-    //       AppLocalizations.of(context).registration_screen_email_warning,
-    //       gravity: Toast.center,
-    //       duration: Toast.lengthLong);
-    //   return;
-    //}
     else if (_register_by == 'phone' && _phone == "") {
       ToastComponent.showDialog(
           AppLocalizations.of(context).registration_screen_phone_warning,
           gravity: Toast.center,
           duration: Toast.lengthLong);
       return;
-    } else if (password == "") {
+    }
+    else if (_register_by == 'email' && (email == "" || !isEmail(email))) {
+      ToastComponent.showDialog(
+          AppLocalizations.of(context).registration_screen_email_warning,
+          gravity: Toast.center,
+          duration: Toast.lengthLong);
+      return;
+    }
+    else if (password == "") {
       ToastComponent.showDialog(
           AppLocalizations.of(context).registration_screen_password_warning,
           gravity: Toast.center,
@@ -262,49 +263,15 @@ class _RegistrationState extends State<Registration> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
-                  _register_by == "email"
-                      ? AppLocalizations.of(context).registration_screen_email
-                      : AppLocalizations.of(context).registration_screen_phone,
+                  _register_by == "phone"
+                      ? AppLocalizations.of(context).registration_screen_phone
+                      : AppLocalizations.of(context).registration_screen_email,
                   style: TextStyle(
                       color: MyTheme.accent_color, fontWeight: FontWeight.w600),
                 ),
               ),
-              // if (_register_by == "email")
-              //   Padding(
-              //     padding: const EdgeInsets.only(bottom: 8.0),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.end,
-              //       children: [
-              //         Container(
-              //           height: 36,
-              //           child: TextField(
-              //             controller: _emailController,
-              //             autofocus: false,
-              //             decoration: InputDecorations.buildInputDecoration_1(
-              //                 hint_text: "johndoe@example.com"),
-              //           ),
-              //         ),
-              //       otp_addon_installed.$
-              //           ? GestureDetector(
-              //               onTap: () {
-              //                 setState(() {
-              //                   _register_by = "phone";
-              //                 });
-              //               },
-              //               child: Text(
-              //                 AppLocalizations.of(context)
-              //                     .registration_screen_or_register_with_phone,
-              //                 style: TextStyle(
-              //                     color: MyTheme.accent_color,
-              //                     fontStyle: FontStyle.italic,
-              //                     decoration: TextDecoration.underline),
-              //               ),
-              //             )
-              //           : Container()
-              //     ],
-              //   ),
-              // ),
-              // else
+
+               if (_register_by == "phone")
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Column(
@@ -369,6 +336,41 @@ class _RegistrationState extends State<Registration> {
                     //         decoration: TextDecoration.underline),
                     //   ),
                     // )
+                  ],
+                ),
+              )
+              else
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 36,
+                        child: TextField(
+                          controller: _emailController,
+                          autofocus: false,
+                          decoration: InputDecorations.buildInputDecoration_1(
+                              hint_text: "johndoe@example.com"),
+                        ),
+                      ),
+                    otp_addon_installed.$
+                        ? GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _register_by = "phone";
+                              });
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .registration_screen_or_register_with_phone,
+                              style: TextStyle(
+                                  color: MyTheme.accent_color,
+                                  fontStyle: FontStyle.italic,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          )
+                        : Container()
                   ],
                 ),
               ),

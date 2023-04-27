@@ -35,7 +35,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String _login_by = "phone"; //phone
+  String _login_by = "phone"; //phone or email
   String initialCountry = 'IN';
   PhoneNumber phoneCode = PhoneNumber(isoCode: 'IN', dialCode: "+91");
   String _phone = "";
@@ -65,20 +65,21 @@ class _LoginState extends State<Login> {
     var phone = _phoneNumberController.text.toString();
     var password = _passwordController.text.toString();
 
-    // if (_login_by == 'email' && email == "") {
-    //   ToastComponent.showDialog(
-    //       AppLocalizations.of(context).login_screen_email_warning,
-    //       gravity: Toast.center,
-    //       duration: Toast.lengthLong);
-    //   return;
-    // } else
     if (_login_by == 'phone' && _phone == "") {
       ToastComponent.showDialog(
           AppLocalizations.of(context).login_screen_phone_warning,
           gravity: Toast.center,
           duration: Toast.lengthLong);
       return;
-    } else if (password == "") {
+    }
+    else if (_login_by == 'email' && email == "") {
+      ToastComponent.showDialog(
+          AppLocalizations.of(context).login_screen_email_warning,
+          gravity: Toast.center,
+          duration: Toast.lengthLong);
+      return;
+    }
+    else if (password == "") {
       ToastComponent.showDialog(
           AppLocalizations.of(context).login_screen_password_warning,
           gravity: Toast.center,
@@ -86,8 +87,8 @@ class _LoginState extends State<Login> {
       return;
     }
 
-    var loginResponse = await AuthRepository()
-        .getLoginResponse(email, '${phoneCode.dialCode}$phone', password);
+    var loginResponse = await AuthRepository().getLoginResponse(
+        _login_by == 'email' ? email : _phone,  password );
     if (loginResponse.result == false) {
       ToastComponent.showDialog(loginResponse.message,
           gravity: Toast.center, duration: Toast.lengthLong);
@@ -333,103 +334,104 @@ class _LoginState extends State<Login> {
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
                   _login_by == "phone"
-                      ? AppLocalizations.of(context).login_screen_email
-                      : AppLocalizations.of(context).login_screen_phone,
+                      ? AppLocalizations.of(context).login_screen_phone
+                      : AppLocalizations.of(context).login_screen_email,
                   style: TextStyle(
                       color: MyTheme.accent_color, fontWeight: FontWeight.w600),
                 ),
               ),
-              // if (_login_by == "email")
-              //   Padding(
-              //     padding: const EdgeInsets.only(bottom: 8.0),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.end,
-              //       children: [
-              //         Container(
-              //           height: 36,
-              //           child: TextField(
-              //             controller: _emailController,
-              //             autofocus: false,
-              //             decoration: InputDecorations.buildInputDecoration_1(
-              //                 hint_text: "johndoe@example.com"),
-              //           ),
-              //         ),
-              //         otp_addon_installed.$
-              //             ? GestureDetector(
-              //                 onTap: () {
-              //                   setState(() {
-              //                     _login_by = "phone";
-              //                   });
-              //                 },
-              //                 child: Text(
-              //                   AppLocalizations.of(context)
-              //                       .login_screen_or_login_with_phone,
-              //                   style: TextStyle(
-              //                       color: MyTheme.accent_color,
-              //                       fontStyle: FontStyle.italic,
-              //                       decoration: TextDecoration.underline),
-              //                 ),
-              //               )
-              //             : Container()
-              //       ],
-              //     ),
-              //   )
-              // else
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 36,
-                      child: CustomInternationalPhoneNumberInput(
-                        onInputChanged: (PhoneNumber number) {
-                          print(number.phoneNumber);
-                          setState(() {
-                            _phone = number.phoneNumber;
-                          });
-                        },
-                        onInputValidated: (bool value) {
-                          print(value);
-                        },
-                        selectorConfig: SelectorConfig(
-                          selectorType: PhoneInputSelectorType.DIALOG,
+              if (_login_by == "phone")
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 36,
+                        child: CustomInternationalPhoneNumberInput(
+                          onInputChanged: (PhoneNumber number) {
+                            print(number.phoneNumber);
+                            setState(() {
+                              _phone = number.phoneNumber;
+                            });
+                          },
+                          onInputValidated: (bool value) {
+                            print(value);
+                          },
+                          selectorConfig: SelectorConfig(
+                            selectorType: PhoneInputSelectorType.DIALOG,
+                          ),
+                          ignoreBlank: false,
+                          autoValidateMode: AutovalidateMode.disabled,
+                          selectorTextStyle:
+                              TextStyle(color: MyTheme.font_grey),
+                          textStyle: TextStyle(color: MyTheme.font_grey),
+                          initialValue: phoneCode,
+                          textFieldController: _phoneNumberController,
+                          formatInput: true,
+                          keyboardType: TextInputType.numberWithOptions(
+                              signed: true, decimal: true),
+                          inputDecoration:
+                              InputDecorations.buildInputDecoration_phone(
+                                  hint_text: "01XXX XXX XXX"),
+                          onSaved: (PhoneNumber number) {
+                            print('On Saved: $number');
+                          },
                         ),
-                        ignoreBlank: false,
-                        autoValidateMode: AutovalidateMode.disabled,
-                        selectorTextStyle: TextStyle(color: MyTheme.font_grey),
-                        textStyle: TextStyle(color: MyTheme.font_grey),
-                        initialValue: phoneCode,
-                        textFieldController: _phoneNumberController,
-                        formatInput: true,
-                        keyboardType: TextInputType.numberWithOptions(
-                            signed: true, decimal: true),
-                        inputDecoration:
-                            InputDecorations.buildInputDecoration_phone(
-                                hint_text: "01XXX XXX XXX"),
-                        onSaved: (PhoneNumber number) {
-                          print('On Saved: $number');
-                        },
                       ),
-                    ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     setState(() {
-                    //       _login_by = "email";
-                    //     });
-                    //   },
-                    //   child: Text(
-                    //     AppLocalizations.of(context)
-                    //         .login_screen_or_login_with_email,
-                    //     style: TextStyle(
-                    //         color: MyTheme.accent_color,
-                    //         fontStyle: FontStyle.italic,
-                    //         decoration: TextDecoration.underline),
-                    //   ),
-                    // )
-                  ],
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     setState(() {
+                      //       _login_by = "email";
+                      //     });
+                      //   },
+                      //   child: Text(
+                      //     AppLocalizations.of(context)
+                      //         .login_screen_or_login_with_email,
+                      //     style: TextStyle(
+                      //         color: MyTheme.accent_color,
+                      //         fontStyle: FontStyle.italic,
+                      //         decoration: TextDecoration.underline),
+                      //   ),
+                      // )
+                    ],
+                  ),
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        height: 36,
+                        child: TextField(
+                          controller: _emailController,
+                          autofocus: false,
+                          decoration: InputDecorations.buildInputDecoration_1(
+                              hint_text: "johndoe@example.com"),
+                        ),
+                      ),
+                      otp_addon_installed.$
+                          ? GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _login_by = "phone";
+                                });
+                              },
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .login_screen_or_login_with_phone,
+                                style: TextStyle(
+                                    color: MyTheme.accent_color,
+                                    fontStyle: FontStyle.italic,
+                                    decoration: TextDecoration.underline),
+                              ),
+                            )
+                          : Container()
+                    ],
+                  ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
