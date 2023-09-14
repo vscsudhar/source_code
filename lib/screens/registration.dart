@@ -57,6 +57,7 @@ class _RegistrationState extends State<Registration> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneNumberController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _referalCodeController = TextEditingController();
   TextEditingController _passwordConfirmController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
   TextEditingController _stateController = TextEditingController();
@@ -113,6 +114,7 @@ class _RegistrationState extends State<Registration> {
     var password_confirm = _passwordConfirmController.text.toString();
     var state = _cityController.text.toString();
     var city = _stateController.text.toString();
+    var referalcode = _referalCodeController.text.toString();
 
     if (name == "") {
       ToastComponent.showDialog(
@@ -195,7 +197,10 @@ class _RegistrationState extends State<Registration> {
         _selected_state.id.toString(),
         _selected_state.name,
         _selected_city.id.toString(),
-        _selected_city.name);
+        _selected_city.name,
+      referalcode,
+
+    );
 
     if (signupResponse.result == false) {
       ToastComponent.showDialog(signupResponse.message,
@@ -600,6 +605,35 @@ class _RegistrationState extends State<Registration> {
                               .address_screen_enter_city),
                     ),
                   ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Text(
+                  'Referal Code (optional)',
+                  style: TextStyle(
+                      color: MyTheme.accent_color, fontWeight: FontWeight.w600),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 36,
+                      child: TextField(
+                        controller: _referalCodeController,
+                        autofocus: false,
+                        obscureText: false,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        decoration: InputDecorations.buildInputDecoration_1(
+                            hint_text: "ABC1234567"),
+                      ),
+                    ),
+
+                  ],
                 ),
               ),
 

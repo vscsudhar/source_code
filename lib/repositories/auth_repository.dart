@@ -14,12 +14,10 @@ import 'dart:convert';
 import 'package:active_ecommerce_flutter/helpers/shared_value_helper.dart';
 
 class AuthRepository {
-  Future<LoginResponse> getLoginResponse(@required String email,
-   //   @required String phone,
-      @required String password) async {
+  Future<LoginResponse> getLoginResponse(
+      @required String email, @required String password) async {
     var post_body = jsonEncode({
       "email": "${email}",
-    //  "phone": "${phone}",
       "password": "$password",
       "identity_matrix": AppConfig.purchase_code
     });
@@ -112,6 +110,7 @@ class AuthRepository {
     @required String state_name,
     @required String city_id,
     @required String city_name,
+    @required String referalcode,
   ) async {
     var post_body = jsonEncode({
       "name": "$name",
@@ -122,7 +121,8 @@ class AuthRepository {
       "state_id": "$state_id",
       "state_name": "$state_name",
       "city_id": "$city_id",
-      "city_name": "$city_name"
+      "city_name": "$city_name",
+      "referalcode": "$referalcode",
     });
 
     print(post_body);
