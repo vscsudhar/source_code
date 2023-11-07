@@ -150,7 +150,9 @@ class _RegistrationState extends State<Registration> {
           gravity: Toast.center,
           duration: Toast.lengthLong);
       return;
-    } else if (password.length < 6) {
+    }
+
+    else if (password.length < 6) {
       ToastComponent.showDialog(
           AppLocalizations.of(context)
               .registration_screen_password_length_warning,
@@ -176,7 +178,15 @@ class _RegistrationState extends State<Registration> {
           gravity: Toast.center,
           duration: Toast.lengthLong);
       return;
-    } else if (!city_list
+    }
+    else if (referalcode == "") {
+      ToastComponent.showDialog(
+          'If No Referal Please Type (0) Zero',
+          gravity: Toast.center,
+          duration: Toast.lengthLong);
+      return;
+    }
+    else if (!city_list
         .any((element) => element == _cityController.text.toString())) {
       ToastComponent.showDialog('Please select valid city',
           gravity: Toast.center, duration: Toast.lengthLong);
@@ -610,7 +620,7 @@ class _RegistrationState extends State<Registration> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(
-                  'Referal Code (optional)',
+                  'Referal Code',
                   style: TextStyle(
                       color: MyTheme.accent_color, fontWeight: FontWeight.w600),
                 ),
@@ -618,7 +628,7 @@ class _RegistrationState extends State<Registration> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       height: 36,
@@ -632,6 +642,8 @@ class _RegistrationState extends State<Registration> {
                             hint_text: "ABC1234567"),
                       ),
                     ),
+                    Text('If No Referal Please Type (0) Zero',
+                      style: TextStyle(color: MyTheme.medium_grey),textAlign: TextAlign.start,),
 
                   ],
                 ),
