@@ -40,73 +40,75 @@ class _ProfileEditState extends State<ProfileEdit> {
   bool _showPassword= false;
   bool _showConfirmPassword = false;
 
+
+  // edied 29-022024
   //for image uploading
-  final ImagePicker _picker = ImagePicker();
-  XFile _file;
+  // final ImagePicker _picker = ImagePicker();
+  // XFile _file;
 
-  chooseAndUploadImage(context) async {
-    var status = await Permission.photos.request();
-
-    if (status.isDenied) {
-      // We didn't ask for permission yet.
-      showDialog(
-          context: context,
-          builder: (BuildContext context) => CupertinoAlertDialog(
-                title:
-                    Text(AppLocalizations.of(context).common_photo_permission),
-                content: Text(
-                    AppLocalizations.of(context).common_app_needs_permission),
-                actions: <Widget>[
-                  CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).common_deny),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).common_settings),
-                    onPressed: () => openAppSettings(),
-                  ),
-                ],
-              ));
-    } else if (status.isRestricted) {
-      ToastComponent.showDialog(
-          AppLocalizations.of(context).common_give_photo_permission,
-          gravity: Toast.center,
-          duration: Toast.lengthLong);
-    } else if (status.isGranted) {
-      //file = await ImagePicker.pickImage(source: ImageSource.camera);
-      _file = await _picker.pickImage(source: ImageSource.gallery);
-
-      if (_file == null) {
-        ToastComponent.showDialog(
-            AppLocalizations.of(context).common_no_file_chosen,
-            gravity: Toast.center,
-            duration: Toast.lengthLong);
-        return;
-      }
-
-      //return;
-      String base64Image = FileHelper.getBase64FormateFile(_file.path);
-      String fileName = _file.path.split("/").last;
-
-      var profileImageUpdateResponse =
-          await ProfileRepository().getProfileImageUpdateResponse(
-        base64Image,
-        fileName,
-      );
-
-      if (profileImageUpdateResponse.result == false) {
-        ToastComponent.showDialog(profileImageUpdateResponse.message,
-            gravity: Toast.center, duration: Toast.lengthLong);
-        return;
-      } else {
-        ToastComponent.showDialog(profileImageUpdateResponse.message,
-            gravity: Toast.center, duration: Toast.lengthLong);
-
-        avatar_original.$ = profileImageUpdateResponse.path;
-        setState(() {});
-      }
-    }
-  }
+  // chooseAndUploadImage(context) async {
+  //   var status = await Permission.photos.request();
+  //
+  //   if (status.isDenied) {
+  //     // We didn't ask for permission yet.
+  //     showDialog(
+  //         context: context,
+  //         builder: (BuildContext context) => CupertinoAlertDialog(
+  //               title:
+  //                   Text(AppLocalizations.of(context).common_photo_permission),
+  //               content: Text(
+  //                   AppLocalizations.of(context).common_app_needs_permission),
+  //               actions: <Widget>[
+  //                 CupertinoDialogAction(
+  //                   child: Text(AppLocalizations.of(context).common_deny),
+  //                   onPressed: () => Navigator.of(context).pop(),
+  //                 ),
+  //                 CupertinoDialogAction(
+  //                   child: Text(AppLocalizations.of(context).common_settings),
+  //                   onPressed: () => openAppSettings(),
+  //                 ),
+  //               ],
+  //             ));
+  //   } else if (status.isRestricted) {
+  //     ToastComponent.showDialog(
+  //         AppLocalizations.of(context).common_give_photo_permission,
+  //         gravity: Toast.center,
+  //         duration: Toast.lengthLong);
+  //   } else if (status.isGranted) {
+  //     //file = await ImagePicker.pickImage(source: ImageSource.camera);
+  //     _file = await _picker.pickImage(source: ImageSource.gallery);
+  //
+  //     if (_file == null) {
+  //       ToastComponent.showDialog(
+  //           AppLocalizations.of(context).common_no_file_chosen,
+  //           gravity: Toast.center,
+  //           duration: Toast.lengthLong);
+  //       return;
+  //     }
+  //
+  //     //return;
+  //     String base64Image = FileHelper.getBase64FormateFile(_file.path);
+  //     String fileName = _file.path.split("/").last;
+  //
+  //     var profileImageUpdateResponse =
+  //         await ProfileRepository().getProfileImageUpdateResponse(
+  //       base64Image,
+  //       fileName,
+  //     );
+  //
+  //     if (profileImageUpdateResponse.result == false) {
+  //       ToastComponent.showDialog(profileImageUpdateResponse.message,
+  //           gravity: Toast.center, duration: Toast.lengthLong);
+  //       return;
+  //     } else {
+  //       ToastComponent.showDialog(profileImageUpdateResponse.message,
+  //           gravity: Toast.center, duration: Toast.lengthLong);
+  //
+  //       avatar_original.$ = profileImageUpdateResponse.path;
+  //       setState(() {});
+  //     }
+  //   }
+  // }
 
   Future<void> _onPageRefresh() async {}
 
@@ -317,7 +319,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                     ),
                     color: MyTheme.light_grey,
                     onPressed: () {
-                      chooseAndUploadImage(context);
+                      // chooseAndUploadImage(context);
                     },
                   ),
                 ),

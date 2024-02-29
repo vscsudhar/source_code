@@ -199,8 +199,7 @@ class _RegistrationState extends State<Registration> {
     }
 
     var signupResponse = await AuthRepository().getSignupResponse(
-        name,
-        _register_by == 'email' ? email : _phone,
+        name,       _register_by == 'email' ? email : _phone,
         password,
         password_confirm,
         _register_by,
@@ -218,8 +217,8 @@ class _RegistrationState extends State<Registration> {
     } else {
       ToastComponent.showDialog(signupResponse.message,
           gravity: Toast.center, duration: Toast.lengthLong);
-      if ((mail_verification_status.$ && _register_by == "email") ||
-          _register_by == "phone") {
+      if ((mail_verification_status.$ && _register_by == "phone") ||
+          _register_by == "email") {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return Otp(
             verify_by: _register_by,
